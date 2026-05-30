@@ -35,7 +35,7 @@ const Register = () => {
               <form
                 name="cave-registration"
                 method="POST"
-                 action="/"
+                 action="/success.html"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 className="mt-8 grid gap-4"
