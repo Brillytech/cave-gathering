@@ -4,9 +4,28 @@ import { FaCheckCircle, FaWhatsapp } from "react-icons/fa";
 
 const Register = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
+  const encode = (data) => {
+    return new URLSearchParams(data).toString();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode(formData),
+    });
+
+    setLoading(false);
     setSubmitted(true);
+    form.reset();
   };
 
   return (
@@ -35,10 +54,10 @@ const Register = () => {
               <form
                 name="cave-registration"
                 method="POST"
-                 action="/success.html"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 className="mt-8 grid gap-4"
+                onSubmit={handleSubmit}
               >
                 <input type="hidden" name="form-name" value="cave-registration" />
 
@@ -110,8 +129,12 @@ const Register = () => {
                   className="form-input min-h-24"
                 ></textarea>
 
-                <button className="mt-2 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-black py-4 transition shadow-[0_0_35px_rgba(251,191,36,0.25)]">
-                  Complete Registration
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-2 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-black py-4 transition shadow-[0_0_35px_rgba(251,191,36,0.25)] disabled:opacity-60"
+                >
+                  {loading ? "Submitting..." : "Complete Registration"}
                 </button>
               </form>
             </>
