@@ -35,10 +35,10 @@ const Register = () => {
               <form
                 name="cave-registration"
                 method="POST"
+                 action="/"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 className="mt-8 grid gap-4"
-                onSubmit={handleSubmit}
               >
                 <input type="hidden" name="form-name" value="cave-registration" />
 
