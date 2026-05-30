@@ -128,7 +128,7 @@ const Register = () => {
               </p>
 
               <a
-                href="https://chat.whatsapp.com/YOUR-WHATSAPP-GROUP-LINK"
+                href="https://chat.whatsapp.com/F7pQ7XDbZisAL5zO1n08h4?mode=gi_t"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-7 inline-flex items-center gap-2 rounded-full bg-green-500 px-6 py-4 text-black font-black hover:bg-green-400 transition"

@@ -17,7 +17,7 @@ const Footer = () => {
             <FaInstagram />
           </a>
 
-          <a href="#" className="footer-icon">
+          <a href="https://chat.whatsapp.com/F7pQ7XDbZisAL5zO1n08h4?mode=gi_t" className="footer-icon">
             <FaWhatsapp />
           </a>
         </div>
