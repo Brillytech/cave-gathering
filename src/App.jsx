@@ -4,6 +4,7 @@ import About from "./components/About";
 import Experience from "./components/Experience";
 import Register from "./components/Register";
 import Footer from "./components/Footer";
+import Details from "./components/Details";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Hero />
       <About />
       <Experience />
+      <Details />
       <Register />
       <Footer />
     </div>

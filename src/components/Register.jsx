@@ -2,9 +2,21 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaWhatsapp } from "react-icons/fa";
 
+const departments = [
+  "Media",
+  "Ushering",
+  "Protocol",
+  "Technical",
+  "Publicity",
+  "Prayer Team",
+  "Welfare",
+  "Choir/Worship Team",
+];
+
 const Register = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [volunteer, setVolunteer] = useState("");
 
   const encode = (data) => {
     return new URLSearchParams(data).toString();
@@ -26,6 +38,7 @@ const Register = () => {
     setLoading(false);
     setSubmitted(true);
     form.reset();
+    setVolunteer("");
   };
 
   return (
@@ -49,6 +62,12 @@ const Register = () => {
 
               <p className="mt-3 text-white/60 text-sm sm:text-base">
                 Kindly fill this form correctly to help us prepare for you.
+              </p>
+
+              <p className="mt-4 italic text-amber-200/80 text-sm leading-7">
+                “And the LORD spake unto Moses face to face, as a man speaketh
+                unto his friend.”
+                <br />— Exodus 33:11
               </p>
 
               <form
@@ -97,10 +116,16 @@ const Register = () => {
 
                 <input name="church" placeholder="Church / Fellowship Name" className="form-input" />
 
-                <select required name="attendance" className="form-input">
-                  <option value="">Attending Physically or Online?</option>
-                  <option>Physical</option>
-                  <option>Online</option>
+          
+                <select name="referral" className="form-input">
+                  <option value="">How did you hear about us?</option>
+                  <option>WhatsApp</option>
+                  <option>Instagram</option>
+                  <option>Facebook</option>
+                  <option>Friend/Invitation</option>
+                  <option>Flyer</option>
+                  <option>Church Announcement</option>
+                  <option>Other</option>
                 </select>
 
                 <textarea
@@ -116,16 +141,52 @@ const Register = () => {
                     <option>No</option>
                   </select>
 
-                  <select name="volunteer" className="form-input">
+                  <select
+                    name="volunteer"
+                    className="form-input"
+                    value={volunteer}
+                    onChange={(e) => setVolunteer(e.target.value)}
+                  >
                     <option value="">Willing to volunteer?</option>
                     <option>Yes</option>
                     <option>No</option>
                   </select>
                 </div>
 
+                {volunteer === "Yes" && (
+                  <div>
+                    <p className="mb-3 text-sm text-white/60">
+                      Which department would you like to serve in?
+                    </p>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {departments.map((department) => (
+                        <label
+                          key={department}
+                          className="rounded-2xl border border-white/10 bg-white/5 p-3 text-sm text-white/80"
+                        >
+                          <input
+                            type="checkbox"
+                            name="departments"
+                            value={department}
+                            className="mr-2"
+                          />
+                          {department}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <textarea
                   name="prayerRequests"
                   placeholder="Prayer Requests"
+                  className="form-input min-h-24"
+                ></textarea>
+
+                <textarea
+                  name="additionalComments"
+                  placeholder="Additional comments or message"
                   className="form-input min-h-24"
                 ></textarea>
 

@@ -10,6 +10,73 @@ const words = [
   { text: "Face To Face.", color: "text-yellow-300" },
 ];
 
+const eventDetails = [
+  { label: "Date", value: "7th August, 2026" },
+  { label: "Time", value: "10:00 AM" },
+  { label: "Venue", value: "Beautified Int'l Christian Center" },
+  { label: "Location", value: "Abeokuta, Ogun State" },
+];
+
+const Countdown = () => {
+  const eventDate = new Date("2026-08-07T10:00:00+01:00").getTime();
+
+  const getTimeLeft = () => {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+
+    if (diff <= 0) {
+      return {
+        days: "00",
+        hours: "00",
+        minutes: "00",
+        seconds: "00",
+      };
+    }
+
+    return {
+      days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, "0"),
+      hours: String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, "0"),
+      minutes: String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0"),
+      seconds: String(Math.floor((diff / 1000) % 60)).padStart(2, "0"),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const items = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Mins", value: timeLeft.minutes },
+    { label: "Secs", value: timeLeft.seconds },
+  ];
+
+  return (
+    <div className="mt-7 grid grid-cols-4 gap-2 max-w-md mx-auto lg:mx-0">
+      {items.map((item) => (
+        <div
+          key={item.label}
+          className="rounded-2xl border border-amber-300/20 bg-black/25 backdrop-blur-md px-2 py-3 text-center"
+        >
+          <p className="text-lg sm:text-2xl font-black text-amber-300">
+            {item.value}
+          </p>
+          <p className="text-[10px] sm:text-xs text-white/50 uppercase tracking-wider">
+            {item.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const RotatingWords = () => {
   const [index, setIndex] = useState(0);
 
@@ -89,6 +156,8 @@ const Hero = () => {
             “Draw me closer, Lord… let me see You face to face.”
           </p>
 
+          <Countdown />
+
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a
               href="#register"
@@ -98,10 +167,10 @@ const Hero = () => {
             </a>
 
             <a
-              href="#about"
+              href="#details"
               className="rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-8 py-4 text-white font-bold hover:bg-white/15 transition"
             >
-              Learn More
+              Event Details
             </a>
           </div>
         </motion.div>
@@ -116,7 +185,7 @@ const Hero = () => {
           <div className="absolute inset-0 rounded-[2rem] bg-amber-400/15 blur-3xl"></div>
 
           <div className="relative rounded-[2rem] border border-amber-200/20 bg-gradient-to-br from-white/10 via-white/5 to-amber-500/5 backdrop-blur-xl p-4 shadow-2xl">
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-6 sm:p-8 min-h-0">
+            <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5 sm:p-8 min-h-0">
               <p className="text-amber-300 text-xs sm:text-sm tracking-[0.3em]">
                 FACE TO FACE
               </p>
@@ -125,27 +194,56 @@ const Hero = () => {
                 <RotatingWords />
               </motion.h2>
 
-              <div className="mt-8 grid grid-cols-2 gap-3 text-sm">
-                <motion.div whileHover={{ scale: 1.04 }} className="rounded-2xl bg-amber-500/15 p-3 border border-amber-300/20">
+              <div className="mt-7 grid grid-cols-2 gap-3 text-xs sm:text-sm">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  className="rounded-2xl bg-amber-500/15 p-3 border border-amber-300/20"
+                >
                   🔥 Deep Worship
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.04 }} className="rounded-2xl bg-blue-500/10 p-3 border border-blue-300/20">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  className="rounded-2xl bg-blue-500/10 p-3 border border-blue-300/20"
+                >
                   🙏 Intercession
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.04 }} className="rounded-2xl bg-orange-500/15 p-3 border border-orange-300/20">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  className="rounded-2xl bg-orange-500/15 p-3 border border-orange-300/20"
+                >
                   ⚡ Revival Fire
                 </motion.div>
 
-                <motion.div whileHover={{ scale: 1.04 }} className="rounded-2xl bg-purple-500/10 p-3 border border-purple-300/20">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  className="rounded-2xl bg-purple-500/10 p-3 border border-purple-300/20"
+                >
                   ✨ Encounters
                 </motion.div>
               </div>
 
-              <p className="mt-8 text-white/70 text-sm">
-                Date, time and venue will be announced soon.
-              </p>
+              <div className="mt-7 grid grid-cols-2 gap-3 text-xs sm:text-sm">
+                {eventDetails.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-white/10 bg-white/5 p-3"
+                  >
+                    <p className="text-white/45">{item.label}</p>
+                    <p className="mt-1 font-bold text-white/90">
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href="#details"
+                className="mt-5 inline-block text-sm font-bold text-amber-300 hover:text-amber-200 transition"
+              >
+                View full venue address →
+              </a>
             </div>
           </div>
         </motion.div>
